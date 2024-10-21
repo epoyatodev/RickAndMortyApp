@@ -11,14 +11,14 @@ enum TabItem: String, CaseIterable {
     case characters = "Characters"
     case episodes = "Episodes"
     case locations = "Locations"
-    case settings = "Favorites"
+    case favorites = "Favorites"
     
     var image: String {
         switch self {
         case .characters: return "person"
         case .episodes: return "tv"
         case .locations: return "globe"
-        case .settings: return "heart"
+        case .favorites: return "heart"
         }
     }
 }

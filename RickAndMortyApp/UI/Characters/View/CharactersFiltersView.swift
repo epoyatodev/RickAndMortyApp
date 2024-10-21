@@ -9,9 +9,10 @@ import SwiftUI
 
 struct CharactersFiltersView: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var viewModel: CharactersViewModel
+    @Environment(CharactersViewModel.self) private var charactersViewModel
     @Namespace var namespace
     var body: some View {
+        @Bindable var viewModel = charactersViewModel
         VStack {
             Text("Filter your characters")
                 .bold()
@@ -74,13 +75,14 @@ struct CharactersFiltersView: View {
         Color.gray.opacity(0.5)
             .ignoresSafeArea()
         
-        CharactersFiltersView(viewModel: .constant(.init()))
+        CharactersFiltersView()
             .frame(maxWidth: .infinity)
             .frame(height: 400)
             .background()
             .clipShape(.rect(cornerRadius: 10))
             .frame(maxHeight: .infinity, alignment: .bottom)
             .ignoresSafeArea()
+            .environment(CharactersViewModel(charactersLogic: .init(charactersService: CharactersServiceTest()), episodesLogic: .init(episodesService: EpisodesServiceTest())))
     }
     
 }
