@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CA47A7772CBF98A900CB88F2 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = CA47A7762CBF98A900CB88F2 /* CachedAsyncImage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CA661A5D2CA1EA5F00F82D2A /* RickAndMortyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CA661A8E2CA1EE0600F82D2A /* Exceptions for "RickAndMortyApp" folder in "RickAndMortyApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CA661A5C2CA1EA5F00F82D2A /* RickAndMortyApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CA661A5F2CA1EA5F00F82D2A /* RickAndMortyApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CA661A8E2CA1EE0600F82D2A /* Exceptions for "RickAndMortyApp" folder in "RickAndMortyApp" target */,
+			);
 			path = RickAndMortyApp;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA47A7772CBF98A900CB88F2 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = RickAndMortyApp;
 			packageProductDependencies = (
+				CA47A7762CBF98A900CB88F2 /* CachedAsyncImage */,
 			);
 			productName = RickAndMortyApp;
 			productReference = CA661A5D2CA1EA5F00F82D2A /* RickAndMortyApp.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = CA661A542CA1EA5F00F82D2A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CA47A7752CBF98A900CB88F2 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CA661A5E2CA1EA5F00F82D2A /* Products */;
 			projectDirPath = "";
@@ -252,8 +274,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RickAndMortyApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 6NRN964UZH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RickAndMortyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -280,8 +304,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RickAndMortyApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 6NRN964UZH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RickAndMortyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -322,6 +348,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CA47A7752CBF98A900CB88F2 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CA47A7762CBF98A900CB88F2 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CA47A7752CBF98A900CB88F2 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CA661A552CA1EA5F00F82D2A /* Project object */;
 }

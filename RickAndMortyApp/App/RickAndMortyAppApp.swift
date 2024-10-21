@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct RickAndMortyAppApp: App {
+    @State private var tabBarViewModel: TabBarViewModel = .init()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabBarView()
+                .environment(tabBarViewModel)
         }
     }
 }
