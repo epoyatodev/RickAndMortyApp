@@ -9,11 +9,12 @@ import SwiftUI
 
 struct CharactersView: View {
     @Environment(TabBarViewModel.self) private var tabBarViewModel
-    @State var viewModel: CharactersViewModel = .init()
+    @Environment(CharactersViewModel.self) private var charactersViewModel
     @State private var presentFiltersSheet: Bool = false
     @State private var showProgress: Bool = false
     
     var body: some View {
+        @Bindable var viewModel = charactersViewModel
         NavigationStack {
             ScrollViewReader { reader in
                 ScrollView {
@@ -31,7 +32,7 @@ struct CharactersView: View {
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 10), count: 2), spacing: 10) {
                         ForEach(viewModel.charactersLogic.characters) { character in
                             NavigationLink(value: character) {
-                                CharacterCell(charactersViewModel: $viewModel, character: character)
+                                CharacterCell(character: character)
                                     .onAppear {
                                         if viewModel.charactersLogic.needLoadMoreCharacters(lastCharacter: character) {
                                             self.showProgress.toggle()
@@ -54,7 +55,7 @@ struct CharactersView: View {
                 }
                 .navigationTitle("Characters")
                 .navigationDestination(for: Character.self, destination: { character in
-                    CharacterDetailView(charactersViewModel: $viewModel, character: character)
+                    CharacterDetailView(character: character)
                         .task {
                             viewModel.charactersLogic.getFav(from: character.name)
                             viewModel.episodesLogic.extractEpisodes(from: character.episodes)
@@ -77,7 +78,7 @@ struct CharactersView: View {
                     }
                 }
                 .sheet(isPresented: $presentFiltersSheet) {
-                    CharactersFiltersView(viewModel: $viewModel)
+                    CharactersFiltersView()
                 }
                 .onScrollGeometryChange(for: CGFloat.self) { proxy in
                     proxy.contentOffset.y
@@ -91,14 +92,16 @@ struct CharactersView: View {
                         }
                     }
                 }
-            }            
+                
+            }
         }
     }
 }
 
 #Preview {
-    CharactersView(viewModel: .init(charactersLogic: .init(charactersService: CharactersServiceTest())))
+    CharactersView()
         .environment(TabBarViewModel())
+        .environment(CharactersViewModel(charactersLogic: .init(charactersService: CharactersServiceTest()), episodesLogic: .init(episodesService: EpisodesServiceTest())))
 }
 
 

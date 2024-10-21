@@ -24,7 +24,6 @@ final class CharactersLogic {
         self.favoriteManager = favoriteManager
         Task {
             await self.fetchCharacters()
-            await self.getAllFav()
         }
     }
     
@@ -39,6 +38,9 @@ final class CharactersLogic {
                 }
             } else {
                 self.characters = try await self.charactersService.fetchCharacters(with: charactersFilterText, with: selectedStatus, with: selectedGender, with: selectedSpecies, loadMore: loadMore)
+                Task {
+                    await self.getAllFav()
+                }
             }
         } catch {
             print(error.localizedDescription)

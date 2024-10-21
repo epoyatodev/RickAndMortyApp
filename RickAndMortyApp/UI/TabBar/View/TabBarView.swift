@@ -10,7 +10,8 @@ import SwiftUI
 struct TabBarView: View {
     /// A tabBarViewModel environment propertie
     @Environment(TabBarViewModel.self) var tabBarViewModel
-        
+    @State var charactersViewModel: CharactersViewModel = .init()
+
     @State private var selected: TabItem = .characters
     init () {
         UITabBar.appearance().isHidden = true
@@ -20,9 +21,17 @@ struct TabBarView: View {
         TabView(selection: $selected) {
             Tab(value: .characters) {
                 CharactersView()
+                    .environment(charactersViewModel)
             }
             Tab(value: .episodes) {
                 Text("HOla")
+            }
+            Tab(value: .locations) {
+                Text("HOla")
+            }
+            Tab(value: .favorites) {
+                FavoritesView()
+                    .environment(charactersViewModel)
             }
         }
         .overlay(alignment: .bottom) {

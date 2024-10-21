@@ -9,7 +9,7 @@ import SwiftUI
 import CachedAsyncImage
 
 struct CharacterCell: View {
-    @Binding var charactersViewModel: CharactersViewModel
+    @Environment(CharactersViewModel.self) private var charactersViewModel
     var character: Character
     
     var body: some View {
@@ -65,6 +65,7 @@ struct CharacterCell: View {
 }
 
 #Preview {
-    CharacterCell(charactersViewModel: .constant(.init(charactersLogic: .init(charactersService: CharactersServiceTest()))),character: .mock)
+    CharacterCell(character: .mock)
         .frame(width: 180)
+        .environment(CharactersViewModel(charactersLogic: .init(charactersService: CharactersServiceTest()), episodesLogic: .init(episodesService: EpisodesServiceTest())))
 }
