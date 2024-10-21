@@ -34,6 +34,9 @@ final class CharactersLogic {
             if loadMore {
                 let response = try await self.charactersService.fetchCharacters(with: charactersFilterText, with: selectedStatus, with: selectedGender, with: selectedSpecies, loadMore: loadMore)
                 self.characters.append(contentsOf: response)
+                Task {
+                    await self.getAllFav()
+                }
             } else {
                 self.characters = try await self.charactersService.fetchCharacters(with: charactersFilterText, with: selectedStatus, with: selectedGender, with: selectedSpecies, loadMore: loadMore)
             }

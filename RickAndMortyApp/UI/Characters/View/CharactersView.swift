@@ -56,9 +56,9 @@ struct CharactersView: View {
                 .navigationDestination(for: Character.self, destination: { character in
                     CharacterDetailView(charactersViewModel: $viewModel, character: character)
                         .task {
+                            viewModel.charactersLogic.getFav(from: character.name)
                             viewModel.episodesLogic.extractEpisodes(from: character.episodes)
                             await viewModel.episodesLogic.fetchFilterEpisodes()
-                            viewModel.charactersLogic.getFav(from: character.name)
                         }
                         .onAppear {
                             withAnimation {
