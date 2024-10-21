@@ -10,6 +10,7 @@ import CachedAsyncImage
 
 struct CharacterDetailView: View {
     @Binding var charactersViewModel: CharactersViewModel
+    @State private var bounce = 0
     var character: Character
     var body: some View {
         VStack {
@@ -38,6 +39,7 @@ struct CharacterDetailView: View {
                 
             VStack(alignment: .leading, spacing: 20) {
                     Button {
+                        self.bounce += 1
                         // TODO:
                         if charactersViewModel.charactersLogic.isFavourite {
                             charactersViewModel.charactersLogic.deleteFavorite(from: character)
@@ -45,13 +47,16 @@ struct CharacterDetailView: View {
                             charactersViewModel.charactersLogic.saveFavorite(from: character)
                         }
                     } label: {
-                        Text(charactersViewModel.charactersLogic.isFavourite ? "Delete Favorite 💔" : "Favorite ♥️")
+                        Image(systemName: charactersViewModel.charactersLogic.isFavourite ? "heart.fill" : "heart")
                             .frame(maxWidth: .infinity)
+                            .foregroundStyle(.red)
+                            .symbolEffect(.bounce, value: bounce)
                     }
                     .padding(10)
-                    .background(.ultraThinMaterial)
+                    .background(.white)
                     .clipShape(.capsule)
                     .foregroundStyle(.primary)
+                    .shadow(radius: 5)
                     .bold()
                     
                     
