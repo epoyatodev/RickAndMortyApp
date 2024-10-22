@@ -11,7 +11,7 @@ struct TabBarView: View {
     /// A tabBarViewModel environment propertie
     @Environment(TabBarViewModel.self) var tabBarViewModel
     @State var charactersViewModel: CharactersViewModel = .init()
-
+    
     @State private var selected: TabItem = .characters
     init () {
         UITabBar.appearance().isHidden = true
@@ -24,10 +24,10 @@ struct TabBarView: View {
                     .environment(charactersViewModel)
             }
             Tab(value: .episodes) {
-                Text("HOla")
+                Text("No available")
             }
             Tab(value: .locations) {
-                Text("HOla")
+                Text("Not available")
             }
             Tab(value: .favorites) {
                 FavoritesView()
@@ -36,7 +36,7 @@ struct TabBarView: View {
         }
         .overlay(alignment: .bottom) {
             CustomTabBar(selected: $selected, showTabBar: $tabBarViewModel.showTabBar)
-                        
+            
         }
     }
 }

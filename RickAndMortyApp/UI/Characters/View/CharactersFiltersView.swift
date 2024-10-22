@@ -35,7 +35,7 @@ struct CharactersFiltersView: View {
             .bold()
             
             Spacer()
-
+            
             HStack {
                 Button("Apply") {
                     Task {
@@ -58,7 +58,7 @@ struct CharactersFiltersView: View {
                 .background(.red.opacity(0.8))
                 .clipShape(.capsule)
                 .foregroundStyle(.white)
-            
+                
             }
             .padding(.vertical)
             
