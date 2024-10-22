@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FavoritesView: View {
     @Environment(CharactersViewModel.self) private var charactersViewModel
+    @Environment(TabBarViewModel.self) private var tabBarViewModel
     @State var viewModel: FavoritesViewModel = .init()
     var body: some View {
         NavigationStack {
@@ -42,11 +43,26 @@ struct FavoritesView: View {
                         await charactersViewModel.episodesLogic.extractEpisodes(from: character.episodes)
                         await charactersViewModel.episodesLogic.fetchFilterEpisodes()
                     }
+                    .onAppear {
+                        withAnimation {
+                            tabBarViewModel.showTabBar = false
+                        }
+                    }
+                    .onDisappear {
+                        withAnimation {
+                            tabBarViewModel.showTabBar = true
+                        }
+                    }
             })
             .overlay {
                 if viewModel.favoritesModelLogic.favoriteCharacters.isEmpty{
                     ContentUnavailableView("Not favorites yet", systemImage: "heart.slash")
                 }
+            }
+            .onScrollGeometryChange(for: CGFloat.self) { proxy in
+                proxy.contentOffset.y
+            } action: { oldValue, newValue in
+                tabBarViewModel.showOrHideTabBar(oldValue: oldValue, newValue: newValue)
             }
             .navigationTitle("Favorites")
             .task {
@@ -59,4 +75,5 @@ struct FavoritesView: View {
 #Preview {
     FavoritesView(viewModel: .init(favoritesModelLogic: .init(favoriteManager: FavoriteManagerTest())))
         .environment(CharactersViewModel(charactersLogic: .init(charactersService: CharactersServiceTest()), episodesLogic: .init(episodesService: EpisodesServiceTest())))
+        .environment(TabBarViewModel())
 }
