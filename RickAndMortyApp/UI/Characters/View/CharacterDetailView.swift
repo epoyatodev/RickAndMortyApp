@@ -28,71 +28,71 @@ struct CharacterDetailView: View {
                     .clipShape(.circle)
                     .foregroundStyle(.secondary)
             }
-                Text(character.name)
-                    .font(.title2)
-                    .foregroundStyle(.primary)
-                    .bold()
-                
-                Text(character.species.rawValue)
-                    .foregroundStyle(.secondary)
-                
-                Text(character.status.rawValue)
+            Text(character.name)
+                .font(.title2)
+                .foregroundStyle(.primary)
+                .bold()
+            
+            Text(character.species.rawValue)
+                .foregroundStyle(.secondary)
+            
+            Text(character.status.rawValue)
                 .foregroundStyle( character.status == .alive ? .green : .red)
-                
+            
             VStack(alignment: .leading, spacing: 20) {
-                    Button {
-                        self.bounce += 1
-                        // TODO:
-                        if charactersViewModel.charactersLogic.isFavourite {
-                            charactersViewModel.charactersLogic.deleteFavorite(from: character)
-                            Task {
-                                await charactersViewModel.charactersLogic.getAllFav()
-                            }
-                            if comeFromFavoriteDetails {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    dismiss()
-                                }
-                            }
-                        } else {
-                            charactersViewModel.charactersLogic.saveFavorite(from: character)
-                            Task {
-                                await charactersViewModel.charactersLogic.getAllFav()
+                Button {
+                    self.bounce += 1
+                    // TODO:
+                    if charactersViewModel.charactersLogic.isFavourite {
+                        charactersViewModel.charactersLogic.deleteFavorite(from: character)
+                        Task {
+                            await charactersViewModel.charactersLogic.getAllFav()
+                        }
+                        if comeFromFavoriteDetails {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                dismiss()
                             }
                         }
-                    } label: {
-                        Image(systemName: charactersViewModel.charactersLogic.isFavourite ? "heart.fill" : "heart")
-                            .frame(maxWidth: .infinity)
-                            .foregroundStyle(.red)
-                            .symbolEffect(.bounce, value: bounce)
+                    } else {
+                        charactersViewModel.charactersLogic.saveFavorite(from: character)
+                        Task {
+                            await charactersViewModel.charactersLogic.getAllFav()
+                        }
                     }
-                    .padding(10)
-                    .background(.white)
-                    .clipShape(.capsule)
-                    .foregroundStyle(.primary)
-                    .shadow(radius: 5)
-                    .bold()
-                    
-                    
-                    VStack(alignment: .leading) {
-                        Text("Last Known Location")
-                            .font(.title3)
-                            .bold()
-                        Text(character.location.name)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    VStack(alignment: .leading) {
-                        Text("Origin")
-                            .font(.title3)
-                            .bold()
-                        Text(character.origin.name)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
+                } label: {
+                    Image(systemName: charactersViewModel.charactersLogic.isFavourite ? "heart.fill" : "heart")
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(.red)
+                        .symbolEffect(.bounce, value: bounce)
                 }
                 .padding(10)
+                .background(.white)
+                .clipShape(.capsule)
+                .foregroundStyle(.primary)
+                .shadow(radius: 5)
+                .bold()
+                
+                
+                VStack(alignment: .leading) {
+                    Text("Last Known Location")
+                        .font(.title3)
+                        .bold()
+                    Text(character.location.name)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                VStack(alignment: .leading) {
+                    Text("Origin")
+                        .font(.title3)
+                        .bold()
+                    Text(character.origin.name)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+            }
+            .padding(10)
             
             VStack(alignment: .leading) {
                 Text("Episodes")
@@ -126,7 +126,7 @@ struct CharacterDetailView: View {
             }
             
             
-
+            
             Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)

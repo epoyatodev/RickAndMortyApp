@@ -24,7 +24,7 @@ struct CustomPicker<T: PickerOption>: View {
                 HStack {
                     ForEach(options, id: \.rawValue) { option in
                         ZStack {
-                                
+                            
                             if option == selected {
                                 Capsule()
                                     .fill(Color.green)
@@ -32,17 +32,17 @@ struct CustomPicker<T: PickerOption>: View {
                                         Capsule()
                                     }
                                     .matchedGeometryEffect(id: "background", in: namespace)
-                                    
+                                
                             }
                             
                             Text(option.rawValue)
                                 .foregroundStyle(option == selected ? .white : .black)
                                 .font(.system(size: 12))
                                 .padding(10)
-
+                            
                         }
                         .frame(width: 100, height: 35)
-
+                        
                         .onTapGesture {
                             withAnimation(.smooth) {
                                 if self.selected != option {

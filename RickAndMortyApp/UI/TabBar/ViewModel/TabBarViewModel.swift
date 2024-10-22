@@ -14,7 +14,6 @@ final class TabBarViewModel {
     var offsetY: CGFloat = 0
     var showTabBar: Bool = true
 
-
     func showOrHideTabBar(oldValue: CGFloat, newValue: CGFloat, showProgress: Bool = false) {
         let new = newValue + (-(originValueScroll ?? 0))
         let old = oldValue + (-(originValueScroll ?? 0) )

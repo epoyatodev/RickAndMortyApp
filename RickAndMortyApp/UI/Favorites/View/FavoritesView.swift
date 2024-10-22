@@ -10,15 +10,30 @@ import SwiftUI
 struct FavoritesView: View {
     @Environment(CharactersViewModel.self) private var charactersViewModel
     @Environment(TabBarViewModel.self) private var tabBarViewModel
-
-    @State private var viewModel: FavoritesViewModel = .init()
+    @State var viewModel: FavoritesViewModel = .init()
     var body: some View {
         NavigationStack {
             List {
                 ForEach(viewModel.favoritesModelLogic.favoriteCharacters) { character in
                     NavigationLink(value: character) {
-                        Text(character.name)
+                        HStack {
+                            CharacterCell(character: character, toFavoriteList: true)
+                            Text(character.name)
+                                .font(.subheadline)
+                        }
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                Task {
+                                    charactersViewModel.charactersLogic.deleteFavorite(from: character)
+                                    await viewModel.favoritesModelLogic.fetchFavorites()
+                                    await charactersViewModel.charactersLogic.getAllFav()
+                                }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                     }
+                    
                 }
             }
             .navigationDestination(for: Character.self, destination: { character in
@@ -58,7 +73,7 @@ struct FavoritesView: View {
 }
 
 #Preview {
-    FavoritesView()
+    FavoritesView(viewModel: .init(favoritesModelLogic: .init(favoriteManager: FavoriteManagerTest())))
         .environment(CharactersViewModel(charactersLogic: .init(charactersService: CharactersServiceTest()), episodesLogic: .init(episodesService: EpisodesServiceTest())))
         .environment(TabBarViewModel())
 }
