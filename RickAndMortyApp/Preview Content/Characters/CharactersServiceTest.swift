@@ -23,3 +23,5 @@ extension [Character] {
         .init(id: 2, name: "Morty Smith", status: .unknown, species: .human, gender: .male, image: URL(string: "https://rickandmortyapi.com/api/character/avatar/2.jpeg"), location: .init(name: "Location 1", url: "url location"), origin: .init(name: "Origin1", url: "url origin"), episodes: ["1", "2", "3"])
     ]
 }
+
+

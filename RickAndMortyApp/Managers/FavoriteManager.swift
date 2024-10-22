@@ -7,7 +7,14 @@
 
 import Foundation
 
-final class FavoriteManager {
+protocol FavoriteProtocol {
+    @MainActor func getSingleFavorite(from character: String, completion: @escaping (CharacterSD?, String?) -> Void)
+    @MainActor func getAllFavorites(completion: @escaping (Result<[CharacterSD], Error>) -> Void)
+    @MainActor func deleteFavorite(from character: CharacterSD)
+    @MainActor func saveFavorite(character: CharacterSD)
+}
+
+struct FavoriteManager: FavoriteProtocol {
     static let shared = FavoriteManager()
     private let swiftDataManager: SwiftDataManager = .shared
     
@@ -41,3 +48,6 @@ final class FavoriteManager {
         self.swiftDataManager.insert(model: character)
     }
 }
+
+
+

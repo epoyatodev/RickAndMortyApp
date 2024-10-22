@@ -9,10 +9,10 @@ import Foundation
 
 @Observable
 final class FavoritesModelLogic {
-    private let favoriteManager: FavoriteManager
+    private let favoriteManager: FavoriteProtocol
     var favoriteCharacters: [Character] = []
     
-    init(favoriteManager: FavoriteManager = .shared) {
+    init(favoriteManager: FavoriteProtocol = FavoriteManager.shared) {
         self.favoriteManager = favoriteManager
     }
     
