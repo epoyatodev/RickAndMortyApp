@@ -10,6 +10,7 @@ import CachedAsyncImage
 
 struct CharacterCell: View {
     @Environment(CharactersViewModel.self) private var charactersViewModel
+    @State private var bounce = 0
     var character: Character
     
     var body: some View {
@@ -59,6 +60,16 @@ struct CharacterCell: View {
                 .padding(5)
                 .foregroundStyle(character.isFavorite ? .red : .white)
                 .bold()
+                .symbolEffect(.bounce, value: bounce)
+            .onTapGesture {
+                if character.isFavorite {
+                    self.charactersViewModel.charactersLogic.deleteFavorite(from: character)
+
+                } else {
+                    self.charactersViewModel.charactersLogic.saveFavorite(from: character)
+                }
+                bounce += 1
+            }
         }
 
     }

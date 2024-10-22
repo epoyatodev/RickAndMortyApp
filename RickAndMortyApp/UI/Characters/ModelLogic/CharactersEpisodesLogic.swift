@@ -27,7 +27,8 @@ final class CharactersEpisodesLogic {
     }
     
     @MainActor
-    func extractEpisodes(from url: [String]) {
+    func extractEpisodes(from url: [String]) async {
+        self.episodesToFilter.removeAll()
         url.forEach { url in
             if let lastComponent = url.components(separatedBy: "/").last {
                 self.episodesToFilter.append(lastComponent)

@@ -23,6 +23,8 @@ struct FavoritesView: View {
                 CharacterDetailView(character: character, comeFromFavoriteDetails: true)
                     .task {
                         charactersViewModel.charactersLogic.getFav(from: character.name)
+                        await charactersViewModel.episodesLogic.extractEpisodes(from: character.episodes)
+                        await charactersViewModel.episodesLogic.fetchFilterEpisodes()
                     }
             })
             .overlay {

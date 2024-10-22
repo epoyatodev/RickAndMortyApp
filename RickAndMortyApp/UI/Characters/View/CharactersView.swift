@@ -58,7 +58,7 @@ struct CharactersView: View {
                     CharacterDetailView(character: character)
                         .task {
                             viewModel.charactersLogic.getFav(from: character.name)
-                            viewModel.episodesLogic.extractEpisodes(from: character.episodes)
+                            await viewModel.episodesLogic.extractEpisodes(from: character.episodes)
                             await viewModel.episodesLogic.fetchFilterEpisodes()
                         }
                         .onAppear {
