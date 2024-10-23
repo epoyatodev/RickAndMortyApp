@@ -11,6 +11,7 @@ struct FavoritesView: View {
     @Environment(CharactersViewModel.self) private var charactersViewModel
     @Environment(TabBarViewModel.self) private var tabBarViewModel
     @State var viewModel: FavoritesViewModel = .init()
+    @State var edge = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.safeAreaInsets
     var body: some View {
         NavigationStack {
             List {
@@ -33,9 +34,15 @@ struct FavoritesView: View {
                             }
                         }
                     }
-                    
+                    .padding(.bottom, character == viewModel.favoritesModelLogic.favoriteCharacters.last ? edge!.bottom + 15 : 0)
                 }
             }
+            .onScrollGeometryChange(for: CGFloat.self) { proxy in
+                proxy.contentOffset.y
+            } action: { oldValue, newValue in
+                tabBarViewModel.showOrHideTabBar(oldValue: oldValue, newValue: newValue)
+            }
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Character.self, destination: { character in
                 CharacterDetailView(character: character, comeFromFavoriteDetails: true)
                     .task {
@@ -59,11 +66,7 @@ struct FavoritesView: View {
                     ContentUnavailableView("Not favorites yet", systemImage: "heart.slash")
                 }
             }
-            .onScrollGeometryChange(for: CGFloat.self) { proxy in
-                proxy.contentOffset.y
-            } action: { oldValue, newValue in
-                tabBarViewModel.showOrHideTabBar(oldValue: oldValue, newValue: newValue)
-            }
+            .listStyle(.plain)
             .navigationTitle("Favorites")
             .task {
                 await self.viewModel.favoritesModelLogic.fetchFavorites()

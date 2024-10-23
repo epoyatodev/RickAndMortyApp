@@ -12,7 +12,7 @@ struct CharactersView: View {
     @Environment(CharactersViewModel.self) private var charactersViewModel
     @State private var presentFiltersSheet: Bool = false
     @State private var showProgress: Bool = false
-    
+    @State var edge = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.safeAreaInsets
     var body: some View {
         @Bindable var viewModel = charactersViewModel
         NavigationStack {
@@ -43,7 +43,7 @@ struct CharactersView: View {
                         }
                     }
                     .padding()
-                    
+                    .padding(.bottom, showProgress ? 0 : edge!.bottom + 15)
                     if showProgress {
                         ProgressView()
                             .task {
