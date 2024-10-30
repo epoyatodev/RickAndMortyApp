@@ -20,7 +20,7 @@ final class CharactersEpisodesLogic {
     @MainActor
     func fetchFilterEpisodes() async {
         do {
-            self.episodes = try await episodesService.fetchFilterEpisodes(filter: episodesToFilter)
+            self.episodes = try await episodesService.fetchEpisodes(filter: episodesToFilter)
         } catch {
             print(error.localizedDescription)
         }
