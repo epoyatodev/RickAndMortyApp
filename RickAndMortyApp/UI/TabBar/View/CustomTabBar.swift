@@ -15,7 +15,7 @@ struct CustomTabBar: View {
             Rectangle()
                 .ignoresSafeArea()
                 .foregroundStyle(.white)
-                .frame(height: 50)
+                .frame(height: 48)
                 .shadow(radius: 5)
             
             HStack {
