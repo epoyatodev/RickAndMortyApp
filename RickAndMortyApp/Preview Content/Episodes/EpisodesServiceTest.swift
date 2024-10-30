@@ -8,7 +8,7 @@
 import Foundation
 
 struct EpisodesServiceTest: EpisodesServiceProtocol {
-    func fetchFilterEpisodes(filter: [String]) async throws -> [Episode] {
+    func fetchEpisodes(filter: [String]?) async throws -> [Episode] {
         return .mock
     }
 }

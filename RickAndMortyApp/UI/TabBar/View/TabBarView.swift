@@ -24,11 +24,9 @@ struct TabBarView: View {
                     .environment(charactersViewModel)
             }
             Tab(value: .episodes) {
-                Text("No available")
+                EpisodesView()
             }
-            Tab(value: .locations) {
-                Text("Not available")
-            }
+            
             Tab(value: .favorites) {
                 FavoritesView()
                     .environment(charactersViewModel)
