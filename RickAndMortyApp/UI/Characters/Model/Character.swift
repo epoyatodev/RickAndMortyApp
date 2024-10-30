@@ -22,6 +22,6 @@ struct Character: Identifiable, Hashable {
 
 extension Character {
     var toCharacterSD: CharacterSD {
-        .init(id: id, name: name, status: .init(status: status.rawValue), species: .init(specie: species.rawValue), gender: .init(gender: gender.rawValue), location: .init(name: location.name), origin: .init(name: origin.name), episodes: episodes.map { EpisodesSD(episode: $0)})
+        .init(id: id, name: name, status: .init(status: status.rawValue), species: .init(specie: species.rawValue), gender: .init(gender: gender.rawValue), image: image , location: .init(name: location.name), origin: .init(name: origin.name), episodes: episodes.map { EpisodesSD(episode: $0)})
     }
 }

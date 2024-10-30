@@ -8,21 +8,23 @@
 import Foundation
 
 protocol EpisodesServiceProtocol {
-    func fetchFilterEpisodes(filter: [String]) async throws -> [Episode]
+    func fetchEpisodes(filter: [String]?) async throws -> [Episode]
 }
 
 struct EpisodesService: EpisodesServiceProtocol {
-    func fetchFilterEpisodes(filter: [String]) async throws -> [Episode] {
+    func fetchEpisodes(filter: [String]?) async throws -> [Episode] {
         guard let baseUrl = InfoManager.shared.getUrlString(forKey: .host) else { throw HttpError.invalidURL}
         
-        let urlRequest = try RequestBuilder(endpoint: EpisodeEndpoint.episodesFilter(filter).rawValue,
+        let urlRequest = try RequestBuilder(endpoint: filter != nil ? EpisodeEndpoint.episodesFilter(filter!).rawValue : EpisodeEndpoint.allEpisodes.rawValue,
                                             baseURL: baseUrl,
                                             method: .get)
             .buildURLRequest()
-        
-        let response = try await (URLRequestDispatcher().doRequest(request: urlRequest) as [EpisodeDTO])
-        
-        return response.map(\.toEpisode)
+        if let filter {
+            let response = try await (URLRequestDispatcher().doRequest(request: urlRequest) as [EpisodeDTO])
+            return response.map(\.toEpisode)
+        } else {
+            let response = try await (URLRequestDispatcher().doRequest(request: urlRequest) as EpisodeResult)
+            return response.results.map(\.toEpisode)
+        }
     }
-    
 }
